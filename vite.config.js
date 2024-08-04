@@ -24,7 +24,7 @@ const jsFiles = Object.fromEntries(
 );
 
 const scssFiles = Object.fromEntries(
-  globSync('src/assets/styles/**/*.scss', { ignore: ['node_modules/**','**/_*.scss'] }).map(file => [
+  globSync('src/assets/styles/**/*.scss', { ignore: ['node_modules/**','common/**','**/_*.scss'] }).map(file => [
     normalizePath(
       path.relative('src', file).replace(/^assets\//, '')
     ),

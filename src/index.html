@@ -516,7 +516,7 @@
       text-decoration: line-through;
     }
   </style>
-  <script src="./assets/scripts/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div class="wrap_index">
@@ -584,7 +584,7 @@
                     <td>${getLabel(item.depth1 + '|' + item.depth2 + '|' + item.depth3, idx === 0 ? null : items[idx - 1].depth1 + '|' + items[idx - 1].depth2 + '|' + items[idx - 1].depth3)}</td>
                     <td>${getLabel(item.depth1 + '|' + item.depth2 + '|' + item.depth3 + '|' + item.depth4, idx === 0 ? null : items[idx - 1].depth1 + '|' + items[idx - 1].depth2 + '|' + items[idx - 1].depth3 + '|' + items[idx - 1].depth4)}</td>
                     <td>${getLabel(item.depth1 + '|' + item.depth2 + '|' + item.depth3 + '|' + item.depth4 + '|' + item.depth5, idx === 0 ? null : items[idx - 1].depth1 + '|' + items[idx - 1].depth2 + '|' + items[idx - 1].depth3 + '|' + items[idx - 1].depth4 + '|' + items[idx - 1].depth5)}</td>
-                    <td><a href="${item.path}" target="_blank" class="link_preview">${item.path}</a></td>
+                    <td><a href=".${item.path}" target="_blank" class="link_preview">${item.path}</a></td>
                     <td>${item.remark}</td>
                 </tr>`;
         });
