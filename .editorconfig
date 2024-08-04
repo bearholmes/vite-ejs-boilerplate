@@ -1,0 +1,18 @@
+# reference: https://github.com/airbnb/javascript/blob/master/.editorconfig
+root = true
+
+[*]
+# 하드탭 또는 소프트탭을 각각 사용 하려면 탭 또는 공백 으로 설정합니다.
+indent_style = space
+# 각 들여쓰기 수준에 사용되는 열의 수와 소프트 탭의 너비(지원되는 경우)를 정의하는 정수입니다.
+indent_size = 2
+#  latin1 , utf-8 , utf-8-bom , utf-16be 또는 utf-16le 로 설정하여 문자 집합을 제어합니다.
+charset = utf-8
+# 개행 문자 앞의 공백 문자를 제거 하려면 true 로 설정하고 제거 하지 않으려면 false 로 설정합니다.
+trim_trailing_whitespace = true
+# 저장할 때 파일이 줄 바꿈으로 끝나도록 하려면 true 로 설정하고 그렇지 않도록 하려면 false 로 설정 합니다.
+insert_final_newline = true
+# 줄 바꿈이 표시되는 방식을 제어 하려면 lf , cr 또는 crlf 로 설정합니다. mac 이면 lf, windows 이면, cr
+end_of_line = lf
+# editorconfig-tools is unable to ignore longs strings or urls
+max_line_length = off

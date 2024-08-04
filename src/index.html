@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <title>목차</title>
+  <style>
+    body {
+      line-height: 1.5;
+      font-family: 'Apple SD Gothic Neo', NotoSans, sans-serif;
+      color: #333;
+      letter-spacing: -.04em;
+      word-break: keep-all;
+      word-wrap: break-word;
+      margin: 0;
+      padding: 0;
+      background-color: #ebebeb
+    }
+
+    .screen_out {
+      overflow: hidden;
+      position: absolute;
+      width: 0;
+      height: 0;
+      line-height: 0;
+      text-indent: -9999px
+    }
+
+    /* 대체텍스트가 아닌 접근성을 위한 숨김텍스트를 제공할때 */
+    .wrap_index {
+      overflow: hidden;
+      position: relative
+    }
+
+    .inner_wrap {
+      position: relative;
+      min-height: calc(100vh);
+      min-height: -webkit-calc(100vh);
+      min-height: -moz-calc(100vh);
+      min-height: calc(100vh);
+      margin: 0 auto;
+      padding-bottom: 100px;
+      box-sizing: border-box
+    }
+
+    .box_header {
+      height: 56px;
+      background-color: #1A1A1A
+    }
+
+    .box_header .inner_header {
+      overflow: hidden;
+      height: 56px;
+      max-width: 1440px;
+      margin: 0 auto
+    }
+
+    .box_header .tit_index {
+      float: left;
+      margin: 0 0 0 15px;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 55px;
+      color: #fff
+    }
+
+    .box_info {
+      max-width: 1440px;
+      margin: 20px auto 0;
+      padding: 10px 15px 18px;
+      border: 1px solid #ccc;
+      background-color: #fafbff
+    }
+
+    .box_info .list_info {
+      position: relative;
+      display: block;
+      overflow: hidden;
+      margin: 0
+    }
+
+    .box_info .list_info dt {
+      position: absolute;
+      width: 130px;
+      padding-top: 10px;
+      font-size: 20px;
+      font-weight: 600
+    }
+
+    .box_info .list_info dd {
+      margin: 12px 0 0 130px;
+      min-height: 20px
+    }
+
+    .box_info .list_info a {
+      text-decoration: none
+    }
+
+    #project-index-container{
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .box_index {
+      margin: 20px auto 0;
+      padding: 5px 15px 15px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+    }
+
+    .tbl_index {
+      width: 100%;
+      border-spacing: 0;
+      border-collapse: collapse;
+      border: 1px solid #d0d0d0;
+      table-layout: fixed;
+      word-break: break-all;
+      word-wrap: break-word
+    }
+
+    caption {
+      padding: 20px 0;
+      font-size: 20px;
+      font-weight: 600;
+      text-align: left
+    }
+
+    .tbl_index th:first-child, .tbl_index td:first-child {
+      border-left: 0
+    }
+
+    .tbl_index th, .tbl_index td {
+      padding: 10px 10px 9px;
+      border-left: 1px solid #d0d0d0;
+      line-height: 18px;
+      word-break: keep-all
+    }
+
+    .tbl_index th {
+      padding: 15px 10px 13px;
+      font-size: 16px;
+      background-color: #ededed
+    }
+
+    .tbl_index td {
+      border-top: 1px solid #d0d0d0;
+      font-size: 14px
+    }
+
+    .tbl_index tr:hover td {
+      background-color: transparent
+    }
+
+    .tbl_index tr:hover td:not([rowspan]) {
+      background-color: #f2f6ff
+    }
+
+    .tbl_index [class*="point"]:hover td {
+      opacity: 0.8
+    }
+
+    .tbl_index tbody td:first-child {
+      font-weight: bold
+    }
+
+    .link_preview {
+      color: #5087ef;
+      word-break: break-all;
+      text-decoration: none
+    }
+
+    .link_preview:visited {
+      color: #5425e0
+    }
+
+    .btn_top {
+      overflow: hidden;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 40px;
+      height: 40px;
+      border: 1px solid #fafafa;
+      border-radius: 4px;
+      font-size: 0;
+      line-height: 0;
+      background: rgba(255, 255, 255, .8);
+      text-indent: -9999px;
+      opacity: 0;
+      -webkit-transition: opacity .3s;
+      -moz-transition: opacity .3s;
+      transition: opacity .3s;
+      cursor: pointer;
+      outline: 0
+    }
+
+    .btn_top:before {
+      position: absolute;
+      top: calc(50% + 2px);
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      border: 2px solid #1a1a1a;
+      border-bottom: 0 none;
+      border-right: 0 none;
+      -webkit-transform: translate(-50%, -50%) rotate(45deg);
+      -moz-transform: translate(-50%, -50%) rotate(45deg);
+      -ms-transform: translate(-50%, -50%) rotate(45deg);
+      transform: translate(-50%, -50%) rotate(45deg);
+      content: ''
+    }
+
+    .btn_top.on {
+      opacity: 1
+    }
+
+    .btn_top.on:hover {
+      opacity: .5
+    }
+
+    @keyframes rotate-loading {
+      0% {
+        transform: rotate(0);
+        -ms-transform: rotate(0);
+        -webkit-transform: rotate(0);
+        -o-transform: rotate(0);
+        -moz-transform: rotate(0)
+      }
+      100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg)
+      }
+    }
+
+    @-moz-keyframes rotate-loading {
+      0% {
+        transform: rotate(0);
+        -ms-transform: rotate(0);
+        -webkit-transform: rotate(0);
+        -o-transform: rotate(0);
+        -moz-transform: rotate(0)
+      }
+      100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg)
+      }
+    }
+
+    @-webkit-keyframes rotate-loading {
+      0% {
+        transform: rotate(0);
+        -ms-transform: rotate(0);
+        -webkit-transform: rotate(0);
+        -o-transform: rotate(0);
+        -moz-transform: rotate(0)
+      }
+      100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg)
+      }
+    }
+
+    @-o-keyframes rotate-loading {
+      0% {
+        transform: rotate(0);
+        -ms-transform: rotate(0);
+        -webkit-transform: rotate(0);
+        -o-transform: rotate(0);
+        -moz-transform: rotate(0)
+      }
+      100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg)
+      }
+    }
+
+    @keyframes rotate-loading {
+      0% {
+        transform: rotate(0);
+        -ms-transform: rotate(0);
+        -webkit-transform: rotate(0);
+        -o-transform: rotate(0);
+        -moz-transform: rotate(0)
+      }
+      100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg)
+      }
+    }
+
+    @-moz-keyframes rotate-loading {
+      0% {
+        transform: rotate(0);
+        -ms-transform: rotate(0);
+        -webkit-transform: rotate(0);
+        -o-transform: rotate(0);
+        -moz-transform: rotate(0)
+      }
+      100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg)
+      }
+    }
+
+    @-webkit-keyframes rotate-loading {
+      0% {
+        transform: rotate(0);
+        -ms-transform: rotate(0);
+        -webkit-transform: rotate(0);
+        -o-transform: rotate(0);
+        -moz-transform: rotate(0)
+      }
+      100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg)
+      }
+    }
+
+    @-o-keyframes rotate-loading {
+      0% {
+        transform: rotate(0);
+        -ms-transform: rotate(0);
+        -webkit-transform: rotate(0);
+        -o-transform: rotate(0);
+        -moz-transform: rotate(0)
+      }
+      100% {
+        transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -moz-transform: rotate(360deg)
+      }
+    }
+
+    @keyframes loading-text-opacity {
+      0% {
+        opacity: 0
+      }
+      20% {
+        opacity: 0
+      }
+      50% {
+        opacity: 1
+      }
+      100% {
+        opacity: 0
+      }
+    }
+
+    @-moz-keyframes loading-text-opacity {
+      0% {
+        opacity: 0
+      }
+      20% {
+        opacity: 0
+      }
+      50% {
+        opacity: 1
+      }
+      100% {
+        opacity: 0
+      }
+    }
+
+    @-webkit-keyframes loading-text-opacity {
+      0% {
+        opacity: 0
+      }
+      20% {
+        opacity: 0
+      }
+      50% {
+        opacity: 1
+      }
+      100% {
+        opacity: 0
+      }
+    }
+
+    @-o-keyframes loading-text-opacity {
+      0% {
+        opacity: 0
+      }
+      20% {
+        opacity: 0
+      }
+      50% {
+        opacity: 1
+      }
+      100% {
+        opacity: 0
+      }
+    }
+
+    .loading, .loading-container {
+      height: 100px;
+      position: relative;
+      width: 100px;
+      border-radius: 100%
+    }
+
+    .loading-container {
+      top: calc(50% - 50px);
+      left: calc(50% - 50px)
+    }
+
+    .loading {
+      border: 2px solid transparent;
+      border-color: transparent #fff transparent #fff;
+      -moz-animation: rotate-loading 1.5s linear 0s infinite normal;
+      -moz-transform-origin: 50% 50%;
+      -o-animation: rotate-loading 1.5s linear 0s infinite normal;
+      -o-transform-origin: 50% 50%;
+      -webkit-animation: rotate-loading 1.5s linear 0s infinite normal;
+      -webkit-transform-origin: 50% 50%;
+      animation: rotate-loading 1.5s linear 0s infinite normal;
+      transform-origin: 50% 50%
+    }
+
+    .loading-container:hover .loading {
+      border-color: transparent #e45635 transparent #e45635
+    }
+
+    .loading-container .loading, .loading-container:hover .loading {
+      -webkit-transition: all .5s ease-in-out;
+      -moz-transition: all .5s ease-in-out;
+      -ms-transition: all .5s ease-in-out;
+      -o-transition: all .5s ease-in-out;
+      transition: all .5s ease-in-out
+    }
+
+    #loading-text {
+      -moz-animation: loading-text-opacity 2s linear 0s infinite normal;
+      -o-animation: loading-text-opacity 2s linear 0s infinite normal;
+      -webkit-animation: loading-text-opacity 2s linear 0s infinite normal;
+      animation: loading-text-opacity 2s linear 0s infinite normal;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      margin-top: 45px;
+      opacity: 0;
+      position: absolute;
+      text-align: center;
+      text-transform: uppercase;
+      top: 0;
+      width: 100px
+    }
+
+    .comm_layer {
+      display: flex;
+      flex-direction: column;
+      overflow: auto;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, .6)
+    }
+
+    .section_index {
+      max-width: 1440px;
+      margin: 20px auto 0;
+      padding: 5px 15px 15px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    .txt_subinfo {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding-top: 5px;
+      font-size: 14px;
+      font-weight: 600
+    }
+
+    .txt_subinfo div {
+      margin-top: 4px
+    }
+
+    /* 페이지 정보 tr 클래스 관련 css - 필요 시 커스터마이징 해서 사용 */
+    .point_add {
+      background: #bfeccf
+    }
+
+    .point_update {
+      background: #ffe99b
+    }
+
+    .point_delete {
+      background: #ff8181;
+      text-decoration: line-through;
+    }
+  </style>
+  <script src="./assets/scripts/jquery.min.js"></script>
+</head>
+<body>
+<div class="wrap_index">
+  <div class="inner_wrap">
+    <div class="box_header">
+      <div class="inner_header">
+        <h1 class="tit_index">서비스명</h1>
+      </div>
+    </div>
+    <div class="section_index box_info">
+      <div class="txt_subinfo">
+        <div class="point_add">녹색줄 : 신규 페이지 (이전)</div>
+        <div class="point_update">노란줄 : 수정된 페이지 (이전)</div>
+        <div class="point_delete">빨간줄 : 스펙아웃 또는 보류</div>
+      </div>
+    </div>
+    <h2 class="screen_out">프로젝트 리스트</h2>
+    <!-- project_index -->
+    <div id="project-index-container"></div>
+    <!-- // project_index -->
+    <button type="button" class="btn_top">맨 위로</button>
+  </div>
+</div>
+<div class="comm_layer" style="display: none">
+  <div class="loading-container">
+    <div class="loading"></div>
+    <div id="loading-text"></div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $.getJSON('./page-list.json', function (pages) {
+      let html = '';
+      $.each(pages, function (group, items) {
+        html += `<div class="box_index">
+                  <table class="tbl_index">
+                      <caption>${group}</caption>
+                      <colgroup>
+                          <col style="width:10%">
+                          <col style="width:10%">
+                          <col style="width:10%">
+                          <col style="width:10%">
+                          <col style="width:10%">
+                          <col>
+                          <col style="width:20%">
+                      </colgroup>
+                      <thead>
+                          <tr>
+                              <th>1 Depth</th>
+                              <th>2 Depth</th>
+                              <th>3 Depth</th>
+                              <th>4 Depth</th>
+                              <th>5 Depth</th>
+                              <th>URL</th>
+                              <th>비고</th>
+                          </tr>
+                      </thead>
+                      <tbody>`;
+        $.each(items, function (idx, item) {
+          const getLabel = (curr, prev) => curr === prev ? '' : curr.split('|').pop();
+          html += `<tr class="${item.class ? item.class : ''}">
+                    <td>${getLabel(item.depth1, idx === 0 ? null : items[idx - 1].depth1)}</td>
+                    <td>${getLabel(item.depth1 + '|' + item.depth2, idx === 0 ? null : items[idx - 1].depth1 + '|' + items[idx - 1].depth2)}</td>
+                    <td>${getLabel(item.depth1 + '|' + item.depth2 + '|' + item.depth3, idx === 0 ? null : items[idx - 1].depth1 + '|' + items[idx - 1].depth2 + '|' + items[idx - 1].depth3)}</td>
+                    <td>${getLabel(item.depth1 + '|' + item.depth2 + '|' + item.depth3 + '|' + item.depth4, idx === 0 ? null : items[idx - 1].depth1 + '|' + items[idx - 1].depth2 + '|' + items[idx - 1].depth3 + '|' + items[idx - 1].depth4)}</td>
+                    <td>${getLabel(item.depth1 + '|' + item.depth2 + '|' + item.depth3 + '|' + item.depth4 + '|' + item.depth5, idx === 0 ? null : items[idx - 1].depth1 + '|' + items[idx - 1].depth2 + '|' + items[idx - 1].depth3 + '|' + items[idx - 1].depth4 + '|' + items[idx - 1].depth5)}</td>
+                    <td><a href="${item.path}" target="_blank" class="link_preview">${item.path}</a></td>
+                    <td>${item.remark}</td>
+                </tr>`;
+        });
+        html += `</tbody>
+              </table>
+          </div>`;
+      });
+      $('#project-index-container').html(html);
+
+      // Initialize link preview
+      preview({
+        el: 'a.link_preview', // 미리보기 할 공통된 셀렉터
+        width: 1440, // 미리보기 페이지의 가로 범위
+        height: 1500, // 미리보기 페이지의 세로 범위
+        scale: 0.35, // 미리보기 페이지의 축소 스케일
+        frameX: 30, // 미리보기할 프레임의 마우스로부터의 X좌표 거리
+        frameY: -100, // 미리보기할 프레임의 마우스로부터의 Y좌표 거리
+      });
+    });
+
+    const btn = $('.btn_top');
+    btn.click(function () {
+      window.scrollTo(0, 0);
+    });
+
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 100) {
+        btn.addClass('on');
+      } else {
+        btn.removeClass('on');
+      }
+    });
+
+    function preview(option) {
+      function setFramePreview(option) {
+        var wrap = document.querySelector('.wrap_index'),
+          element = document.querySelectorAll(option.el),
+          html = '<iframe id="popupView" frameborder="0" scrolling="no" style="position:absolute;z-index:9999;width:' + option.width + 'px;height:' + option.height + 'px;-webkit-transform:scale(' + option.scale + ');transform: scale(' + option.scale + ');-webkit-transform-origin:top left;transform-origin:top left;background:#fff;box-shadow:0 0 4px 0 rgba(0, 0, 0, 0.18), 0 4px 10px 0 rgba(0, 0, 0, 0.27), 0 16px 40px 0 rgba(85, 92, 107, 0.4)"></iframe>';
+
+        for (var i = 0, len = element.length; i < len; i++) {
+          element[i].addEventListener('mouseenter', linkOver);
+          element[i].addEventListener('mouseleave', linkLeave);
+        }
+
+        function appendHtml(el, str) {
+          var div = document.createElement('div');
+          div.innerHTML = str;
+          while (div.children.length > 0) {
+            el.appendChild(div.children[0]);
+          }
+        }
+
+        // 링크 마우스 enter
+        function linkOver(e) {
+          appendHtml(wrap, html);
+
+          var targetX = e.pageX + option.frameX,
+            targetY = e.pageY + option.frameY,
+            popupView = document.querySelector('#popupView');
+
+
+          var url = this.getAttribute('href');
+          popupView.setAttribute('src', url);
+
+          var winWid = window.innerWidth - 15
+              || document.documentElement.clientWidth,
+            winHei = window.innerHeight
+              || document.documentElement.clientHeight,
+            widMouseToFrameRightEdge = option.width * option.scale + option.frameX,
+            widMouseToWindowRightEdge = winWid - e.clientX,
+            heiMouseToFrameBottomEdge = option.height * option.scale + option.frameY,
+            heiMouseToWindowBottomEdge = winHei - e.clientY,
+            isFrameWidInside = widMouseToWindowRightEdge > widMouseToFrameRightEdge,
+            isFrameHeiInside = heiMouseToWindowBottomEdge > heiMouseToFrameBottomEdge;
+
+          if (!(isFrameWidInside && isFrameHeiInside)) {
+            if (!isFrameWidInside && !isFrameHeiInside) {
+              popupView.style.left = (e.pageX - option.frameX - option.width * option.scale).toFixed(0) + 'px';
+              correctionHeight();
+              return;
+            }
+            if (!isFrameWidInside) {
+              popupView.style.left = (e.pageX - option.frameX - option.width * option.scale).toFixed(0) + 'px';
+              popupView.style.top = targetY + 'px';
+            }
+            if (!isFrameHeiInside) {
+              popupView.style.left = targetX + 'px';
+              correctionHeight();
+            }
+          } else {
+            popupView.style.left = targetX + 'px';
+            popupView.style.top = targetY + 'px';
+          }
+
+          // 프레임 위치 조정
+          function correctionHeight() {
+            if (heiMouseToFrameBottomEdge > e.clientY) {
+              popupView.style.top = (e.pageY - e.clientY + 10) + 'px';
+            } else {
+              popupView.style.top = (e.pageY - option.height * option.scale - option.frameY).toFixed(0) + 'px';
+            }
+          }
+        }
+
+        function linkLeave() {
+          popupView.parentNode.removeChild(popupView);
+        }
+      }
+
+      setFramePreview(option);
+    }
+  });
+</script>
+</body>
+</html>

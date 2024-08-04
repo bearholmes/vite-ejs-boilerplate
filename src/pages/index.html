@@ -1,0 +1,33 @@
+<%#
+{
+"group": "테스트",
+"depth1": "테스트1",
+"depth2": "",
+"depth3": "",
+"depth4": "",
+"depth5": "",
+"remark": "",
+"class": ""
+}
+#%>
+<!doctype html>
+<html lang="ko">
+<head>
+  <%- include('./templates/partials/head.ejs') %>
+  <script type="module" src="@/assets/scripts/util.js"></script>
+    <title>Vite App</title>
+</head>
+<body>
+<div id="app">
+<%- include('./templates/partials/header.ejs') %>
+    <div class="card">
+        <button id="counter" type="button"></button>
+    </div>
+    <p class="read-the-docs">
+        Click on the Vite logo to learn more
+    </p>
+<%- include('./templates/partials/footer.ejs') %>
+</div>
+<script src="@/assets/scripts/counter.js"></script>
+</body>
+</html>
