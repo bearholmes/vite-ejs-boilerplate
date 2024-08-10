@@ -58,6 +58,15 @@ export default defineConfig({
     sassGlobImports(),
     liveReload(['templates/**/*.ejs'])
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        sassOptions: {
+          // additionalData: `@import "@/assets/style/global.scss";`,
+        }
+      },
+    },
+  },
   resolve: {
     alias: [
       {
@@ -69,6 +78,7 @@ export default defineConfig({
   build: {
     outDir: '../dist',
     emptyOutDir: true,
+    minify: false,
     rollupOptions: {
       input: inputObject,
       output: {
