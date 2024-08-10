@@ -548,8 +548,10 @@
 </div>
 
 <script>
+  var pages = JSON.parse('<%- pageList %>');
   $(document).ready(function () {
-    $.getJSON('./page-list.json', function (pages) {
+    function init (pages) {
+      console.log('init', pages)
       let html = '';
       $.each(pages, function (group, items) {
         html += `<div class="box_index">
@@ -603,7 +605,11 @@
         frameX: 30, // 미리보기할 프레임의 마우스로부터의 X좌표 거리
         frameY: -100, // 미리보기할 프레임의 마우스로부터의 Y좌표 거리
       });
-    });
+    }
+
+    // $.getJSON('./page-list.json', init);
+    init(pages);
+
 
     const btn = $('.btn_top');
     btn.click(function () {

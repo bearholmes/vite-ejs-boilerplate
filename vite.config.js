@@ -9,9 +9,17 @@ import {ViteGenerateIndexPlugin} from "./viteGenerateIndexPlugin.js";
 
 // Function to normalize paths
 const normalizePath = (filePath) => {
-  return filePath.replace(/\\/g, '/'); // Convert backslashes to forward slashes for consistency
+  return filePath.replace(/\\/g, '/');
 };
 
+const viteRemoveCrossorigin = () => {
+  return {
+    name: "viteRemoveCrossorigin",
+    transformIndexHtml(html) {
+      return html.replaceAll(`type="module" crossorigin`, "type=\"module\"").replaceAll(`rel="modulepreload" crossorigin`, "rel=\"modulepreload\"").replaceAll(`rel="stylesheet" crossorigin`, "rel=\"stylesheet\"");
+    }
+  }
+}
 
 const jsFiles = Object.fromEntries(
   globSync('src/**/*.js', { ignore: ['node_modules/**','**/modules/**','**/dist/**']}).map(file => [
@@ -33,9 +41,9 @@ const scssFiles = Object.fromEntries(
 );
 
 const htmlFiles = Object.fromEntries(
-  globSync('src/pages/**/*.html', { ignore: ['node_modules/**'] }).map(file => [
+  globSync('src/pages/**/*.{html,ejs}', { ignore: ['node_modules/**'] }).map(file => [
     normalizePath(
-      path.relative('src/pages', file)
+      path.relative('src', file)
     ),
     fileURLToPath(new URL(file, import.meta.url))
   ])
@@ -50,12 +58,17 @@ console.table(inputObject)
 
 export default defineConfig({
   root: 'src',
-  base: '/',
+  base: '',
   publicDir: 'public',
   plugins: [
-    ViteEjsPlugin(),
     ViteGenerateIndexPlugin(),
+    ViteEjsPlugin({
+      ejs: {
+        beautify: true,
+      }
+    }),
     sassGlobImports(),
+    viteRemoveCrossorigin(),
     liveReload(['templates/**/*.ejs'])
   ],
   css: {

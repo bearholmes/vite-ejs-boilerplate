@@ -1,5 +1,6 @@
 import ejs from 'ejs';
 import path from 'node:path';
+import pageList from './src/page-list.json';
 
 function ViteEjsPlugin(options = {}) {
   let config;
@@ -24,6 +25,7 @@ function ViteEjsPlugin(options = {}) {
             html,
             {
               isDev: config.mode === 'development',
+              pageList: JSON.stringify(pageList),
             },
             {
               views: [path.resolve(config.root)],
