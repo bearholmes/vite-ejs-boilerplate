@@ -2,7 +2,7 @@ import path from 'node:path';
 import fs from 'fs';
 import { sync } from 'glob';
 
-const normalizePath = (filePath) => filePath.replace(/\\/g, '/');
+const normalizePath = filePath => filePath.replace(/\\/g, '/');
 
 /**
  * Generate a grouped page list from HTML/EJS meta blocks.
@@ -17,7 +17,7 @@ async function generateIndexJson(rootDir, outDir) {
   const nonMetaPages = [];
   const errorMetaPages = [];
 
-  ejsList.forEach((ejsPath) => {
+  ejsList.forEach(ejsPath => {
     const meta = extractMeta(ejsPath);
     if (!meta) {
       nonMetaPages.push(ejsPath);
@@ -41,7 +41,11 @@ async function generateIndexJson(rootDir, outDir) {
   }
 
   if (errorMetaPages.length > 0) {
-    console.log('\x1b[31;1m', '페이지 정보 데이터 표기 오류 템플릿 파일 목록', '\n');
+    console.log(
+      '\x1b[31;1m',
+      '페이지 정보 데이터 표기 오류 템플릿 파일 목록',
+      '\n'
+    );
     console.table(errorMetaPages);
   }
 
@@ -49,17 +53,25 @@ async function generateIndexJson(rootDir, outDir) {
 
   for (const key in groups) {
     groups[key].sort((a, b) => {
-      return comp(a.depth1, b.depth1) || comp(a.depth2, b.depth2)
-        || comp(a.depth3, b.depth3) || comp(a.depth4, b.depth4);
+      return (
+        comp(a.depth1, b.depth1) ||
+        comp(a.depth2, b.depth2) ||
+        comp(a.depth3, b.depth3) ||
+        comp(a.depth4, b.depth4)
+      );
     });
   }
 
-  const result = Object.keys(groups).sort().reduce((acc, key) => {
-    acc[key] = groups[key];
-    return acc;
-  }, {});
+  const result = Object.keys(groups)
+    .sort()
+    .reduce((acc, key) => {
+      acc[key] = groups[key];
+      return acc;
+    }, {});
 
-  const filePath = outDir ? path.join(outDir, 'page-list.json') : path.join(rootDir, 'page-list.json');
+  const filePath = outDir
+    ? path.join(outDir, 'page-list.json')
+    : path.join(rootDir, 'page-list.json');
   fs.writeFileSync(filePath, JSON.stringify(reverseSortJsonKeys(result)));
 }
 
@@ -75,7 +87,8 @@ function extractMeta(ejsPath) {
     return null;
   }
 
-  const meta = data.substring(0, endIndex)
+  const meta = data
+    .substring(0, endIndex)
     .replace(/<%#|\n/g, '')
     .trim();
 
@@ -90,8 +103,8 @@ function extractMeta(ejsPath) {
 function isValidMeta(meta) {
   try {
     const json = JSON.parse(meta);
-    return (typeof json === 'object');
-  } catch (e) {
+    return typeof json === 'object';
+  } catch {
     return false;
   }
 }
@@ -108,11 +121,8 @@ function comp(a, b) {
  */
 function reducer(accumulator, page) {
   const groupName = page.group;
-  if (accumulator.hasOwnProperty(groupName)) {
-    accumulator[groupName].push(page);
-  } else {
-    accumulator[groupName] = [page];
-  }
+  const existing = accumulator[groupName] ?? [];
+  accumulator[groupName] = [...existing, page];
   return accumulator;
 }
 
@@ -154,7 +164,7 @@ function ViteGenerateIndexPlugin() {
       if (file.endsWith('.html') || file.endsWith('.ejs')) {
         await generateIndexJson(rootDir);
       }
-    },
+    }
   };
 }
 

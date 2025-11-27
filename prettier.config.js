@@ -1,52 +1,42 @@
-module.exports = {
+export default {
   /**
-   * @description 큰따옴표 대신 작은따옴표를 사용함(true일 경우)
-   * @see https://prettier.io/docs/en/options.html#quotes
+   * 큰따옴표 대신 작은따옴표를 사용합니다.
    */
   singleQuote: true,
-    /**
-     * @description 문장의 끝에 세미콜론을 인쇄합니다.
-     * @see https://prettier.io/docs/en/options.html#semicolons
-     */
-    semi: true,
   /**
-   * @description 탭 사용 여부를 지정합니다.
-   * @see https://prettier.io/docs/en/options.html#use-tabs
+   * 문장의 끝에 세미콜론을 추가합니다.
+   */
+  semi: true,
+  /**
+   * 탭 대신 스페이스 사용 여부.
    */
   useTabs: false,
   /**
-   * @description 문장의 들여쓰기 공백 수를 지정합니다.
-   * @see https://prettier.io/docs/en/options.html#tab-width
+   * 들여쓰기 공백 수.
    */
   tabWidth: 2,
   /**
-   * @description 여러 줄의 쉼표로 구분된 구문 구조에서 가능하면 후행 쉼표를 인쇄합니다.(ex none 일경우 인쇄하지 않음)
-   * @see https://prettier.io/docs/en/options.html#trailing-commas
+   * 여러 줄 구문에서 후행 쉼표 사용 여부.
    */
   trailingComma: 'none',
   /**
-   * @description 문장의 래핑할 최대 길이를 지정합니다.
-   * @see https://prettier.io/docs/en/options.html#print-width
+   * 한 줄 최대 길이.
    */
   printWidth: 80,
   /**
-   * @description 객체 리터럴의 대괄호 사이에 공백을 인쇄합니다.
-   * @see https://prettier.io/docs/en/options.html#bracket-spacing
+   * 객체 리터럴의 괄호 사이 공백 사용.
    */
   bracketSpacing: true,
   /**
-   * @description 유일한 화살표 함수 매개변수 주위에 괄호를 포함합니다.(avoid일 경우 포함하지 않음)
-   * @see https://prettier.io/docs/en/options.html#arrow-function-parentheses
+   * 화살표 함수 매개변수 괄호 사용 방식.
    */
   arrowParens: 'avoid',
   /**
-   * @description 여러줄의 HTML (HTML, JSX, Vue, Angular)을 작성하는 경우 닫는 '>'를 새로운 줄에 추가합니다.
-   * @see https://prettier.io/docs/en/options.html#bracket-line
+   * 여러 줄 HTML에서 닫는 '>'를 같은 줄에 배치합니다.
    */
   bracketSameLine: true,
   /**
-   * @description HTML, JSX에서 한 줄에 단일 속성을 적용합니다.
-   * @see https://prettier.io/docs/en/options.html#single-attribute-per-line
+   * HTML/JSX에서 한 줄에 하나의 속성만 배치합니다.
    */
   singleAttributePerLine: true
-}
+};

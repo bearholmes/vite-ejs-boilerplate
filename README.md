@@ -58,11 +58,11 @@ npm run build
 
 ### Available Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | 개발 서버 시작 (기본 포트: 3000) |
-| `npm run dev -- --port 4000` | 커스텀 포트로 개발 서버 시작 |
-| `npm run build` | 프로덕션 빌드 (`dist/` 폴더에 생성) |
+| Command                      | Description                         |
+| ---------------------------- | ----------------------------------- |
+| `npm run dev`                | 개발 서버 시작 (기본 포트: 3000)    |
+| `npm run dev -- --port 4000` | 커스텀 포트로 개발 서버 시작        |
+| `npm run build`              | 프로덕션 빌드 (`dist/` 폴더에 생성) |
 
 ---
 
@@ -98,12 +98,12 @@ vite-ejs-boilerplate/
 
 ### Key Directories
 
-| Directory | Purpose |
-|-----------|---------|
-| `src/pages/` | 실제 페이지 파일 (각 파일이 HTML 엔드포인트가 됨) |
-| `src/templates/partials/` | 재사용 가능한 레이아웃 컴포넌트 (헤더, 푸터 등) |
-| `src/assets/` | 스타일, 스크립트, 이미지 등의 자산 |
-| `plugins/` | EJS 렌더링 및 페이지 인덱스 생성 플러그인 |
+| Directory                 | Purpose                                           |
+| ------------------------- | ------------------------------------------------- |
+| `src/pages/`              | 실제 페이지 파일 (각 파일이 HTML 엔드포인트가 됨) |
+| `src/templates/partials/` | 재사용 가능한 레이아웃 컴포넌트 (헤더, 푸터 등)   |
+| `src/assets/`             | 스타일, 스크립트, 이미지 등의 자산                |
+| `plugins/`                | EJS 렌더링 및 페이지 인덱스 생성 플러그인         |
 
 ---
 
@@ -138,13 +138,13 @@ vite-ejs-boilerplate/
 
 #### Metadata Fields
 
-| Field | Description | Example |
-|-------|-------------|---------|
-| `group` | 페이지 그룹/카테고리 | "메인", "서브" |
-| `depth1` | 1차 depth 레이블 | "홈", "소개" |
-| `depth2` | 2차 depth 레이블 (선택) | "팀 소개" |
-| `remark` | 페이지 설명/비고 | "랜딩 섹션" |
-| `class` | 상태 표시 클래스 | `point_add`, `point_update`, `point_delete` |
+| Field    | Description             | Example                                     |
+| -------- | ----------------------- | ------------------------------------------- |
+| `group`  | 페이지 그룹/카테고리    | "메인", "서브"                              |
+| `depth1` | 1차 depth 레이블        | "홈", "소개"                                |
+| `depth2` | 2차 depth 레이블 (선택) | "팀 소개"                                   |
+| `remark` | 페이지 설명/비고        | "랜딩 섹션"                                 |
+| `class`  | 상태 표시 클래스        | `point_add`, `point_update`, `point_delete` |
 
 #### Status Classes
 
@@ -212,9 +212,9 @@ setupCounter(document.querySelector('#counter'));
 ```javascript
 export default {
   server: {
-    port: 4000  // 기본값: 3000
+    port: 4000 // 기본값: 3000
   }
-}
+};
 ```
 
 **방법 2:** CLI 옵션 사용

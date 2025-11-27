@@ -76,7 +76,10 @@ function ViteEjsPlugin(options = {}) {
           alias.forEach(({ find, replacement }) => {
             const aliasRegex = toAliasRegex(find);
             html = html.replace(aliasRegex, () => {
-              return path.posix.join('/', path.relative(config.root, replacement));
+              return path.posix.join(
+                '/',
+                path.relative(config.root, replacement)
+              );
             });
           });
 

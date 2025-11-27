@@ -1,377 +1,406 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-
-<head>
-  <meta charset="utf-8">
-  <title>Project Index</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-    rel="stylesheet">
-  <style>
-    :root {
-      --bg: #ffffff;
-      --surface: #f8fafc;
-      --border: #e2e8f0;
-      --text: #334155;
-      --text-muted: #94a3b8;
-      --primary: #475569;
-      --accent: #3b82f6;
-
-      --font-sans: 'Inter', system-ui, sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
-
-      --header-height: 56px;
-      --sidebar-width: 240px;
-    }
-
-    @media (prefers-color-scheme: dark) {
+  <head>
+    <meta charset="utf-8" />
+    <title>Project Index</title>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet" />
+    <style>
       :root {
-        --bg: #0f172a;
-        --surface: #1e293b;
-        --border: #334155;
-        --text: #cbd5e1;
-        --text-muted: #64748b;
-        --primary: #94a3b8;
-        --accent: #60a5fa;
+        --bg: #ffffff;
+        --surface: #f8fafc;
+        --border: #e2e8f0;
+        --text: #334155;
+        --text-muted: #94a3b8;
+        --primary: #475569;
+        --accent: #3b82f6;
+
+        --font-sans: 'Inter', system-ui, sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+
+        --header-height: 56px;
+        --sidebar-width: 240px;
       }
-    }
 
-    * {
-      box-sizing: border-box;
-    }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0f172a;
+          --surface: #1e293b;
+          --border: #334155;
+          --text: #cbd5e1;
+          --text-muted: #64748b;
+          --primary: #94a3b8;
+          --accent: #60a5fa;
+        }
+      }
 
-    body {
-      margin: 0;
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: var(--font-sans);
-      font-size: 13px;
-      line-height: 1.5;
-    }
+      * {
+        box-sizing: border-box;
+      }
 
-    /* Compact Header */
-    .app-header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: var(--header-height);
-      background: var(--bg);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      z-index: 100;
-    }
+      body {
+        margin: 0;
+        background-color: var(--bg);
+        color: var(--text);
+        font-family: var(--font-sans);
+        font-size: 13px;
+        line-height: 1.5;
+      }
 
-    .app-title {
-      font-weight: 600;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--text);
-    }
+      /* Compact Header */
+      .app-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: var(--header-height);
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+        z-index: 100;
+      }
 
-    .app-title::before {
-      content: '';
-      display: block;
-      width: 12px;
-      height: 12px;
-      background: var(--accent);
-      border-radius: 2px;
-    }
+      .app-title {
+        font-weight: 600;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text);
+      }
 
-    .stats {
-      display: flex;
-      gap: 16px;
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--text-muted);
-    }
+      .app-title::before {
+        content: '';
+        display: block;
+        width: 12px;
+        height: 12px;
+        background: var(--accent);
+        border-radius: 2px;
+      }
 
-    .stat-item strong {
-      color: var(--text);
-      font-weight: 500;
-    }
+      .stats {
+        display: flex;
+        gap: 16px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-muted);
+      }
 
-    /* Layout */
-    .layout {
-      display: flex;
-      padding-top: var(--header-height);
-      min-height: 100vh;
-    }
+      .stat-item strong {
+        color: var(--text);
+        font-weight: 500;
+      }
 
-    /* Sidebar */
-    .sidebar {
-      width: var(--sidebar-width);
-      position: fixed;
-      top: var(--header-height);
-      bottom: 0;
-      left: 0;
-      border-right: 1px solid var(--border);
-      background: var(--surface);
-      display: flex;
-      flex-direction: column;
-      z-index: 90;
-    }
+      /* Layout */
+      .layout {
+        display: flex;
+        padding-top: var(--header-height);
+        min-height: 100vh;
+      }
 
-    .sidebar-nav {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px 0;
-    }
-
-    .sidebar-footer {
-      padding: 20px;
-      border-top: 1px solid var(--border);
-      background: var(--bg);
-    }
-
-    .nav-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 24px;
-      color: var(--text-muted);
-      text-decoration: none;
-      transition: all 0.15s ease;
-      font-size: 13px;
-      border-left: 2px solid transparent;
-    }
-
-    .nav-link:hover {
-      color: var(--text);
-      background: rgba(0, 0, 0, 0.03);
-    }
-
-    .nav-count {
-      font-size: 11px;
-      opacity: 0.7;
-      font-family: var(--font-mono);
-    }
-
-    /* Legend */
-    .legend-title {
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-      letter-spacing: 0.05em;
-    }
-
-    .legend-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      color: var(--text-secondary);
-    }
-
-    .main-content {
-      flex: 1;
-      margin-left: var(--sidebar-width);
-      padding: 40px;
-      max-width: 1600px;
-    }
-
-    /* Section & Table */
-    .group-section {
-      margin-bottom: 48px;
-      scroll-margin-top: 80px;
-    }
-
-    .group-header {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      margin-bottom: 16px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: var(--header-height);
-      background: var(--bg);
-      z-index: 10;
-    }
-
-    .group-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text);
-      margin: 0;
-    }
-
-    .group-count {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
-
-    .data-table th {
-      text-align: left;
-      font-weight: 500;
-      color: var(--text-muted);
-      padding: 8px 12px;
-      border-bottom: 1px solid var(--border);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
-
-    .data-table td {
-      padding: 6px 12px;
-      border-bottom: 1px solid var(--border);
-      vertical-align: top;
-    }
-
-    .data-table tr:hover td {
-      background: var(--surface);
-    }
-
-    .col-depth {
-      font-family: var(--font-mono);
-      color: var(--text-muted);
-      width: 120px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .col-path {
-      font-family: var(--font-mono);
-      color: var(--accent);
-    }
-
-    .col-path a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .col-path a:hover {
-      text-decoration: underline;
-    }
-
-    .col-remark {
-      color: var(--text-muted);
-    }
-
-    /* Status Indicators */
-    .status-dot {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      margin-right: 6px;
-    }
-
-    .status-new {
-      background-color: #22c55e;
-    }
-
-    .status-update {
-      background-color: #eab308;
-    }
-
-    .status-delete {
-      background-color: #ef4444;
-    }
-
-    .row-new td:first-child {
-      border-left: 2px solid #22c55e;
-    }
-
-    .row-update td:first-child {
-      border-left: 2px solid #eab308;
-    }
-
-    .row-delete td {
-      opacity: 0.5;
-      text-decoration: line-through;
-    }
-
-    @media (max-width: 1024px) {
+      /* Sidebar */
       .sidebar {
-        display: none;
+        width: var(--sidebar-width);
+        position: fixed;
+        top: var(--header-height);
+        bottom: 0;
+        left: 0;
+        border-right: 1px solid var(--border);
+        background: var(--surface);
+        display: flex;
+        flex-direction: column;
+        z-index: 90;
+      }
+
+      .sidebar-nav {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px 0;
+      }
+
+      .sidebar-footer {
+        padding: 20px;
+        border-top: 1px solid var(--border);
+        background: var(--bg);
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 24px;
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: all 0.15s ease;
+        font-size: 13px;
+        border-left: 2px solid transparent;
+      }
+
+      .nav-link:hover {
+        color: var(--text);
+        background: rgba(0, 0, 0, 0.03);
+      }
+
+      .nav-count {
+        font-size: 11px;
+        opacity: 0.7;
+        font-family: var(--font-mono);
+      }
+
+      /* Legend */
+      .legend-title {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 12px;
+        letter-spacing: 0.05em;
+      }
+
+      .legend-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--text-secondary);
       }
 
       .main-content {
-        margin-left: 0;
-        padding: 20px;
+        flex: 1;
+        margin-left: var(--sidebar-width);
+        padding: 40px;
+        max-width: 1600px;
       }
-    }
-  </style>
-</head>
 
-<body>
-  <header class="app-header">
-    <div class="app-title">Project Index</div>
-    <div class="stats">
-      <div class="stat-item">Groups: <strong data-group-count>-</strong></div>
-      <div class="stat-item">Pages: <strong data-page-count>-</strong></div>
-    </div>
-  </header>
+      /* Section & Table */
+      .group-section {
+        margin-bottom: 48px;
+        scroll-margin-top: 80px;
+      }
 
-  <div class="layout">
-    <aside class="sidebar">
-      <nav class="sidebar-nav" id="sidebar-nav"></nav>
-      <div class="sidebar-footer">
-        <div class="legend-title">Legend</div>
-        <div class="legend-list">
-          <div class="legend-item"><span class="status-dot status-new"></span> New</div>
-          <div class="legend-item"><span class="status-dot status-update"></span> Updated</div>
-          <div class="legend-item"><span class="status-dot status-delete"></span> Deleted</div>
-        </div>
+      .group-header {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin-bottom: 16px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: var(--header-height);
+        background: var(--bg);
+        z-index: 10;
+      }
+
+      .group-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text);
+        margin: 0;
+      }
+
+      .group-count {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+
+      .data-table th {
+        text-align: left;
+        font-weight: 500;
+        color: var(--text-muted);
+        padding: 8px 12px;
+        border-bottom: 1px solid var(--border);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+      }
+
+      .data-table td {
+        padding: 6px 12px;
+        border-bottom: 1px solid var(--border);
+        vertical-align: top;
+      }
+
+      .data-table tr:hover td {
+        background: var(--surface);
+      }
+
+      .col-depth {
+        font-family: var(--font-mono);
+        color: var(--text-muted);
+        width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .col-path {
+        font-family: var(--font-mono);
+        color: var(--accent);
+      }
+
+      .col-path a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .col-path a:hover {
+        text-decoration: underline;
+      }
+
+      .col-remark {
+        color: var(--text-muted);
+      }
+
+      /* Status Indicators */
+      .status-dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        margin-right: 6px;
+      }
+
+      .status-new {
+        background-color: #22c55e;
+      }
+
+      .status-update {
+        background-color: #eab308;
+      }
+
+      .status-delete {
+        background-color: #ef4444;
+      }
+
+      .row-new td:first-child {
+        border-left: 2px solid #22c55e;
+      }
+
+      .row-update td:first-child {
+        border-left: 2px solid #eab308;
+      }
+
+      .row-delete td {
+        opacity: 0.5;
+        text-decoration: line-through;
+      }
+
+      @media (max-width: 1024px) {
+        .sidebar {
+          display: none;
+        }
+
+        .main-content {
+          margin-left: 0;
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="app-header">
+      <div class="app-title">Project Index</div>
+      <div class="stats">
+        <div class="stat-item">Groups: <strong data-group-count>-</strong></div>
+        <div class="stat-item">Pages: <strong data-page-count>-</strong></div>
       </div>
-    </aside>
-    <main class="main-content" id="main-content"></main>
-  </div>
+    </header>
 
-  <script>
-    const pages = JSON.parse('<%- pageList %>');
+    <div class="layout">
+      <aside class="sidebar">
+        <nav
+          class="sidebar-nav"
+          id="sidebar-nav"></nav>
+        <div class="sidebar-footer">
+          <div class="legend-title">Legend</div>
+          <div class="legend-list">
+            <div class="legend-item">
+              <span class="status-dot status-new"></span> New
+            </div>
+            <div class="legend-item">
+              <span class="status-dot status-update"></span> Updated
+            </div>
+            <div class="legend-item">
+              <span class="status-dot status-delete"></span> Deleted
+            </div>
+          </div>
+        </div>
+      </aside>
+      <main
+        class="main-content"
+        id="main-content"></main>
+    </div>
 
-    const renderSidebar = (entries) => {
-      const nav = document.getElementById('sidebar-nav');
-      nav.innerHTML = entries.map(([group, items]) => `
+    <script>
+      const pages = JSON.parse('<%- pageList %>');
+
+      const toRelativePath = path => {
+        if (!path) return '#';
+        return path.startsWith('/') ? `.${path}` : path;
+      };
+
+      const renderSidebar = entries => {
+        const nav = document.getElementById('sidebar-nav');
+        nav.innerHTML = entries
+          .map(
+            ([group, items]) => `
         <a href="#group-${group}" class="nav-link">
           <span>${group}</span>
           <span class="nav-count">${items.length}</span>
         </a>
-      `).join('');
-    };
+      `
+          )
+          .join('');
+      };
 
-    const formatDepth = (items, idx, key) => {
-      const current = items[idx][key];
-      const prev = idx > 0 ? items[idx - 1][key] : null;
-      return current === prev ? '' : current || '';
-    };
+      const formatDepth = (items, idx, key) => {
+        const current = items[idx][key];
+        const prev = idx > 0 ? items[idx - 1][key] : null;
+        return current === prev ? '' : current || '';
+      };
 
-    const renderContent = () => {
-      const container = document.getElementById('main-content');
-      const entries = Object.entries(pages);
-      const totalPages = entries.reduce((acc, [, list]) => acc + list.length, 0);
+      const renderContent = () => {
+        const container = document.getElementById('main-content');
+        const entries = Object.entries(pages);
+        const totalPages = entries.reduce(
+          (acc, [, list]) => acc + list.length,
+          0
+        );
 
-      document.querySelector('[data-group-count]').textContent = entries.length;
-      document.querySelector('[data-page-count]').textContent = totalPages;
+        document.querySelector('[data-group-count]').textContent =
+          entries.length;
+        document.querySelector('[data-page-count]').textContent = totalPages;
 
-      renderSidebar(entries);
+        renderSidebar(entries);
 
-      container.innerHTML = entries.map(([group, items]) => `
+        container.innerHTML = entries
+          .map(
+            ([group, items]) => `
         <section id="group-${group}" class="group-section">
           <header class="group-header">
             <h2 class="group-title">${group}</h2>
@@ -389,103 +418,115 @@
               </tr>
             </thead>
             <tbody>
-              ${items.map((item, idx) => {
-        const statusClass = item.class === 'point_add' ? 'row-new' :
-          item.class === 'point_update' ? 'row-update' :
-            item.class === 'point_delete' ? 'row-delete' : '';
+              ${items
+                .map((item, idx) => {
+                  const statusClass =
+                    item.class === 'point_add'
+                      ? 'row-new'
+                      : item.class === 'point_update'
+                        ? 'row-update'
+                        : item.class === 'point_delete'
+                          ? 'row-delete'
+                          : '';
 
-        const statusDot = item.class === 'point_add' ? '<span class="status-dot status-new" title="New"></span>' :
-          item.class === 'point_update' ? '<span class="status-dot status-update" title="Updated"></span>' : '';
+                  const statusDot =
+                    item.class === 'point_add'
+                      ? '<span class="status-dot status-new" title="New"></span>'
+                      : item.class === 'point_update'
+                        ? '<span class="status-dot status-update" title="Updated"></span>'
+                        : '';
 
-        return `
+                  return `
                   <tr class="${statusClass}">
                     <td>${statusDot}</td>
                     <td class="col-depth">${formatDepth(items, idx, 'depth1')}</td>
                     <td class="col-depth">${formatDepth(items, idx, 'depth2')}</td>
                     <td class="col-depth">${formatDepth(items, idx, 'depth3')}</td>
-                    <td class="col-path"><a href="${item.path}" target="_blank" class="link_preview">${item.path}</a></td>
+                    <td class="col-path"><a href="${toRelativePath(item.path)}" target="_blank" rel="noreferrer" class="link_preview">${item.path}</a></td>
                     <td class="col-remark">${item.remark || ''}</td>
                   </tr>
                 `;
-      }).join('')}
+                })
+                .join('')}
             </tbody>
           </table>
         </section>
-      `).join('');
-    };
-
-    renderContent();
-
-    const setupPreview = (option) => {
-      const wrap = document.body;
-      const elements = document.querySelectorAll(option.el);
-
-      const createFrame = () => {
-        const frame = document.createElement('iframe');
-        frame.id = 'popupView';
-        frame.setAttribute('frameborder', '0');
-        frame.setAttribute('scrolling', 'no');
-        frame.style.position = 'absolute';
-        frame.style.zIndex = '9999';
-        frame.style.width = `${option.width}px`;
-        frame.style.height = `${option.height}px`;
-        frame.style.transform = `scale(${option.scale})`;
-        frame.style.transformOrigin = 'top left';
-        frame.style.background = '#ffffff';
-        frame.style.borderRadius = '12px';
-        frame.style.boxShadow = '0 20px 50px rgba(0,0,0,0.2)';
-        frame.style.border = '1px solid var(--border)';
-        return frame;
+      `
+          )
+          .join('');
       };
 
-      const removeFrame = () => {
-        const existing = document.getElementById('popupView');
-        if (existing && existing.parentNode) {
-          existing.parentNode.removeChild(existing);
-        }
-      };
+      renderContent();
 
-      elements.forEach((el) => {
-        el.addEventListener('mouseenter', (e) => {
-          removeFrame();
-          const frame = createFrame();
-          frame.src = el.getAttribute('href');
-          wrap.appendChild(frame);
+      const setupPreview = option => {
+        const wrap = document.body;
+        const elements = document.querySelectorAll(option.el);
 
-          const targetX = e.pageX + option.frameX;
-          const targetY = e.pageY + option.frameY;
-          const scaledWidth = option.width * option.scale;
-          const scaledHeight = option.height * option.scale;
-          const viewWidth = window.innerWidth - 20;
-          const viewHeight = window.innerHeight - 20;
+        const createFrame = () => {
+          const frame = document.createElement('iframe');
+          frame.id = 'popupView';
+          frame.setAttribute('frameborder', '0');
+          frame.setAttribute('scrolling', 'no');
+          frame.style.position = 'absolute';
+          frame.style.zIndex = '9999';
+          frame.style.width = `${option.width}px`;
+          frame.style.height = `${option.height}px`;
+          frame.style.transform = `scale(${option.scale})`;
+          frame.style.transformOrigin = 'top left';
+          frame.style.background = '#ffffff';
+          frame.style.borderRadius = '12px';
+          frame.style.boxShadow = '0 20px 50px rgba(0,0,0,0.2)';
+          frame.style.border = '1px solid var(--border)';
+          return frame;
+        };
 
-          let left = targetX;
-          let top = targetY;
-
-          if (targetX + scaledWidth > viewWidth) {
-            left = e.pageX - option.frameX - scaledWidth;
+        const removeFrame = () => {
+          const existing = document.getElementById('popupView');
+          if (existing && existing.parentNode) {
+            existing.parentNode.removeChild(existing);
           }
-          if (targetY + scaledHeight > viewHeight) {
-            top = e.pageY - option.frameY - scaledHeight;
-          }
+        };
 
-          frame.style.left = `${left}px`;
-          frame.style.top = `${top}px`;
+        elements.forEach(el => {
+          el.addEventListener('mouseenter', e => {
+            removeFrame();
+            const frame = createFrame();
+            frame.src = toRelativePath(el.getAttribute('href'));
+            wrap.appendChild(frame);
+
+            const targetX = e.pageX + option.frameX;
+            const targetY = e.pageY + option.frameY;
+            const scaledWidth = option.width * option.scale;
+            const scaledHeight = option.height * option.scale;
+            const viewWidth = window.innerWidth - 20;
+            const viewHeight = window.innerHeight - 20;
+
+            let left = targetX;
+            let top = targetY;
+
+            if (targetX + scaledWidth > viewWidth) {
+              left = e.pageX - option.frameX - scaledWidth;
+            }
+            if (targetY + scaledHeight > viewHeight) {
+              top = e.pageY - option.frameY - scaledHeight;
+            }
+
+            frame.style.left = `${left}px`;
+            frame.style.top = `${top}px`;
+          });
+
+          el.addEventListener('mouseleave', removeFrame);
         });
+      };
 
-        el.addEventListener('mouseleave', removeFrame);
+      setupPreview({
+        el: 'a.link_preview',
+        width: 1440,
+        height: 1200,
+        scale: 0.25,
+        frameX: 20,
+        frameY: 20
       });
-    };
-
-    setupPreview({
-      el: 'a.link_preview',
-      width: 1440,
-      height: 1200,
-      scale: 0.25,
-      frameX: 20,
-      frameY: 20
-    });
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>
