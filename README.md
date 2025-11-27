@@ -266,8 +266,6 @@ MIT License
 
 <div align="center">
 
-**[⬆ Back to Top](#vite--ejs-boilerplate)**
-
 Made with Vite + EJS
 
 </div>
