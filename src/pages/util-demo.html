@@ -1,0 +1,42 @@
+<%#
+{
+  "group": "Function",
+  "depth1": "유틸 데모",
+  "depth2": "",
+  "depth3": "",
+  "depth4": "",
+  "depth5": "",
+  "remark": "jQuery util + 카운터 예시",
+  "class": "point_add"
+}
+#%>
+<!doctype html>
+<html lang="ko">
+<head>
+  <%- include('./templates/partials/head.ejs') %>
+  <title>유틸 예시 | Vite EJS Boilerplate</title>
+  <script type="module" src="@/assets/scripts/util.js"></script>
+</head>
+<body>
+<%- include('./templates/partials/header.ejs') %>
+<main class="container section">
+  <div class="pill">jQuery util.js + counter.js</div>
+  <div class="grid">
+    <article class="card">
+      <h3>카운터 데모</h3>
+      <p>버튼 클릭 시 `counter.js`가 상태를 증가시키며 버튼 라벨을 업데이트합니다.</p>
+      <button id="counter" type="button" class="cta">count is 0</button>
+    </article>
+    <article class="card">
+      <h3>jQuery 이벤트</h3>
+      <p>`util.js`에서 DOM ready 후 콘솔 로그를 남기고, 데모 박스에 hover 효과를 붙입니다.</p>
+      <div class="list" id="hover-demo">
+        <div class="contact-item">마우스를 올리면 util.js가 클래스를 토글합니다.</div>
+      </div>
+    </article>
+  </div>
+</main>
+<%- include('./templates/partials/footer.ejs') %>
+<script src="../assets/scripts/counter.js"></script>
+</body>
+</html>

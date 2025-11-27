@@ -2,32 +2,37 @@ import path from 'node:path';
 import fs from 'fs';
 import { sync } from 'glob';
 
-const normalizePath = (filePath) => {
-  return filePath.replace(/\\/g, '/'); // Convert backslashes to forward slashes for consistency
-};
+const normalizePath = (filePath) => filePath.replace(/\\/g, '/');
 
-// Generate index JSON file
+/**
+ * Generate a grouped page list from HTML/EJS meta blocks.
+ * @param {string} rootDir absolute or relative root directory (e.g., src)
+ * @param {string} [outDir] optional build output directory
+ * @returns {Promise<void>}
+ */
 async function generateIndexJson(rootDir, outDir) {
-  let ejsList = sync(`${rootDir}/pages/**/*.{html,ejs}`, { nosort: true });
+  const ejsList = sync(`${rootDir}/pages/**/*.{html,ejs}`, { nosort: true });
 
   const pages = [];
   const nonMetaPages = [];
   const errorMetaPages = [];
 
   ejsList.forEach((ejsPath) => {
-    const valid = validMeta(ejsPath);
     const meta = extractMeta(ejsPath);
     if (!meta) {
       nonMetaPages.push(ejsPath);
-    } else {
-      if (!valid) {
-        errorMetaPages.push(ejsPath);
-      } else {
-        const metaJson = JSON.parse(meta);
-        metaJson.path = ejsPath.replace(new RegExp(`^${rootDir}`), '').replace(/\.(html|ejs)$/, '.html');
-        pages.push(metaJson);
-      }
+      return;
     }
+
+    if (!isValidMeta(meta)) {
+      errorMetaPages.push(ejsPath);
+      return;
+    }
+
+    const metaJson = JSON.parse(meta);
+    const relativePath = normalizePath(path.relative(rootDir, ejsPath));
+    metaJson.path = `/${relativePath.replace(/\.(html|ejs)$/, '.html')}`;
+    pages.push(metaJson);
   });
 
   if (nonMetaPages.length > 0) {
@@ -42,7 +47,7 @@ async function generateIndexJson(rootDir, outDir) {
 
   const groups = pages.reduce(reducer, {});
 
-  for (let key in groups) {
+  for (const key in groups) {
     groups[key].sort((a, b) => {
       return comp(a.depth1, b.depth1) || comp(a.depth2, b.depth2)
         || comp(a.depth3, b.depth3) || comp(a.depth4, b.depth4);
@@ -54,23 +59,35 @@ async function generateIndexJson(rootDir, outDir) {
     return acc;
   }, {});
 
-  // Write the JSON file to the outDir for production build or rootDir for development
   const filePath = outDir ? path.join(outDir, 'page-list.json') : path.join(rootDir, 'page-list.json');
   fs.writeFileSync(filePath, JSON.stringify(reverseSortJsonKeys(result)));
 }
 
-// Utility functions
+/**
+ * Extract the JSON meta block at the top of a template file.
+ * @param {string} ejsPath
+ * @returns {string|null}
+ */
 function extractMeta(ejsPath) {
-  const data = fs.readFileSync(ejsPath, "utf8");
-  const meta = data.substring(0, data.indexOf("#%>"))
-    .replace(/<%#|\n/g, "");
-  return meta;
+  const data = fs.readFileSync(ejsPath, 'utf8');
+  const endIndex = data.indexOf('#%>');
+  if (endIndex === -1) {
+    return null;
+  }
+
+  const meta = data.substring(0, endIndex)
+    .replace(/<%#|\n/g, '')
+    .trim();
+
+  return meta || null;
 }
 
-function validMeta(ejsPath) {
-  const data = fs.readFileSync(ejsPath, "utf8");
-  const meta = data.substring(0, data.indexOf("#%>"))
-    .replace(/<%#|\n/g, "");
+/**
+ * Validate that a meta string is a JSON object.
+ * @param {string} meta
+ * @returns {boolean}
+ */
+function isValidMeta(meta) {
   try {
     const json = JSON.parse(meta);
     return (typeof json === 'object');
@@ -83,6 +100,12 @@ function comp(a, b) {
   return a > b ? 1 : a < b ? -1 : 0;
 }
 
+/**
+ * Group pages by `group` key.
+ * @param {Record<string, Array>} accumulator
+ * @param {object} page
+ * @returns {Record<string, Array>}
+ */
 function reducer(accumulator, page) {
   const groupName = page.group;
   if (accumulator.hasOwnProperty(groupName)) {
@@ -102,32 +125,33 @@ function reverseSortJsonKeys(jsonObj) {
   return sortedJsonObj;
 }
 
+/**
+ * Vite plugin that builds page-list.json for navigation and metadata.
+ * @returns {import('vite').Plugin}
+ */
 function ViteGenerateIndexPlugin() {
   let rootDir = '';
-  let outDir = '';
+  let buildOutDir = '';
 
   return {
-    name: "vite-generate-index-plugin",
+    name: 'vite-generate-index-plugin',
 
     configResolved(config) {
-      // Store rootDir and outDir values
       rootDir = config.root;
-      outDir = config.build.outDir;
+      buildOutDir = config.build.outDir;
     },
 
     async buildStart() {
-      // Generate JSON file in the rootDir for development
       await generateIndexJson(rootDir);
     },
 
     async writeBundle(options) {
-      // Generate JSON file in the outDir for production build
-      await generateIndexJson(rootDir, options.dir);
+      const targetDir = options?.dir || buildOutDir;
+      await generateIndexJson(rootDir, targetDir);
     },
 
     async handleHotUpdate({ file }) {
       if (file.endsWith('.html') || file.endsWith('.ejs')) {
-        // Regenerate JSON file on file changes
         await generateIndexJson(rootDir);
       }
     },

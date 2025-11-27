@@ -1,11 +1,11 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
-import { ViteEjsPlugin } from './viteEjsPlugin.js';
+import { ViteEjsPlugin } from './plugins/viteEjsPlugin.js';
 import sassGlobImports from 'vite-plugin-sass-glob-import';
 import { globSync } from 'glob';
 import liveReload from 'vite-plugin-live-reload';
-import {ViteGenerateIndexPlugin} from "./viteGenerateIndexPlugin.js";
+import { ViteGenerateIndexPlugin } from './plugins/viteGenerateIndexPlugin.js';
 
 // Function to normalize paths
 const normalizePath = (filePath) => {
