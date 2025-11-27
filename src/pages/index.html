@@ -1,33 +1,83 @@
-<%#
-{
-"group": "테스트",
-"depth1": "테스트1",
-"depth2": "",
-"depth3": "",
-"depth4": "",
-"depth5": "",
-"remark": "",
-"class": ""
-}
-#%>
+<%# { "group" : "Demo" , "depth1" : "Home" , "depth2" : "" , "depth3" : "" ,
+"depth4" : "" , "depth5" : "" , "remark" : "Landing Page" , "class" : "" } #%>
 <!doctype html>
-<html lang="ko">
-<head>
-  <%- include('./templates/partials/head.ejs') %>
-  <script type="module" src="@/assets/scripts/util.js"></script>
-    <title>Vite App</title>
-</head>
-<body>
-<div id="app">
-<%- include('./templates/partials/header.ejs') %>
-    <div class="card">
-        <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-        Click on the Vite logo to learn more
-    </p>
-<%- include('./templates/partials/footer.ejs') %>
-</div>
-<script src="../assets/scripts/counter.js"></script>
-</body>
+<html lang="en">
+  <head>
+    <%- include('./templates/partials/head.ejs') %>
+    <title>Home | Vite EJS Boilerplate</title>
+  </head>
+
+  <body>
+    <%- include('./templates/partials/header.ejs') %>
+    <main class="container">
+      <section class="hero">
+        <div class="eyebrow">Multi-page · EJS · SCSS</div>
+        <h1>Start your Vite multi-page project instantly.</h1>
+        <p>
+          Auto-generated page index, EJS templates, and SCSS structure are
+          ready. Share common headers/footers and expand your pages.
+        </p>
+        <div class="cta-group">
+          <a
+            class="cta primary"
+            href="/pages/about.html"
+            >About Project</a
+          >
+          <a
+            class="cta"
+            href="/pages/contact.html"
+            >Contact Us</a
+          >
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="pill">Quick Start</div>
+        <div class="grid">
+          <article class="card">
+            <h3>Template Structure</h3>
+            <p>
+              Add HTML/EJS to `src/pages` and it will automatically appear in
+              the route index.
+            </p>
+            <div class="meta">Write JSON meta at the top of the template.</div>
+          </article>
+          <article class="card">
+            <h3>Style System</h3>
+            <p>
+              Basic styles and page-specific SCSS are configured in
+              `src/assets/styles`. Extend with your own variables and utilities.
+            </p>
+            <div class="meta">SCSS is automatically bundled by Vite.</div>
+          </article>
+          <article class="card">
+            <h3>Common Layouts</h3>
+            <p>
+              Manage navigation in one place via `src/templates/partials`
+              header/footer.
+            </p>
+            <div class="meta">
+              Edit brand/links to reflect across all pages.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="pill">Next Steps</div>
+        <ul class="list">
+          <li>
+            New Page: Create `src/pages/folder/page.ejs` and add `<%# { "group"
+            : "..." , "depth1" : "..." } #%>` meta.
+          </li>
+          <li>
+            Styles: Add corresponding SCSS to `src/assets/styles/pages/` and
+            import in `style.scss` if needed.
+          </li>
+          <li>Build: Run `npm run build` and check the `dist/` result.</li>
+        </ul>
+      </section>
+    </main>
+    <%- include('./templates/partials/footer.ejs') %>
+  </body>
 </html>

@@ -1,60 +1,66 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
-import { ViteEjsPlugin } from './viteEjsPlugin.js';
+import { ViteEjsPlugin } from './plugins/viteEjsPlugin.js';
 import sassGlobImports from 'vite-plugin-sass-glob-import';
 import { globSync } from 'glob';
 import liveReload from 'vite-plugin-live-reload';
-import {ViteGenerateIndexPlugin} from "./viteGenerateIndexPlugin.js";
+import { ViteGenerateIndexPlugin } from './plugins/viteGenerateIndexPlugin.js';
 
 // Function to normalize paths
-const normalizePath = (filePath) => {
+const normalizePath = filePath => {
   return filePath.replace(/\\/g, '/');
 };
 
 const viteRemoveCrossorigin = () => {
   return {
-    name: "viteRemoveCrossorigin",
+    name: 'viteRemoveCrossorigin',
     transformIndexHtml(html) {
-      return html.replaceAll(`type="module" crossorigin`, "type=\"module\"").replaceAll(`rel="modulepreload" crossorigin`, "rel=\"modulepreload\"").replaceAll(`rel="stylesheet" crossorigin`, "rel=\"stylesheet\"");
+      return html
+        .replaceAll(`type="module" crossorigin`, 'type="module"')
+        .replaceAll(`rel="modulepreload" crossorigin`, 'rel="modulepreload"')
+        .replaceAll(`rel="stylesheet" crossorigin`, 'rel="stylesheet"');
     }
-  }
-}
+  };
+};
 
 const jsFiles = Object.fromEntries(
-  globSync('src/**/*.js', { ignore: ['node_modules/**','**/modules/**','**/dist/**']}).map(file => [
-    normalizePath(path.relative(
-      'src',
-      file.slice(0, file.length - path.extname(file).length)
-    ).replace(/^assets\//, '')),
+  globSync('src/**/*.js', {
+    ignore: ['node_modules/**', '**/modules/**', '**/dist/**']
+  }).map(file => [
+    normalizePath(
+      path
+        .relative('src', file.slice(0, file.length - path.extname(file).length))
+        .replace(/^assets\//, '')
+    ),
     fileURLToPath(new URL(file, import.meta.url))
   ])
 );
 
 const scssFiles = Object.fromEntries(
-  globSync('src/assets/styles/**/*.scss', { ignore: ['node_modules/**','common/**','**/_*.scss'] }).map(file => [
-    normalizePath(
-      path.relative('src', file).replace(/^assets\//, '')
-    ),
+  globSync('src/assets/styles/**/*.scss', {
+    ignore: ['node_modules/**', 'common/**', '**/_*.scss']
+  }).map(file => [
+    normalizePath(path.relative('src', file).replace(/^assets\//, '')),
     fileURLToPath(new URL(file, import.meta.url))
   ])
 );
 
 const htmlFiles = Object.fromEntries(
-  globSync('src/pages/**/*.{html,ejs}', { ignore: ['node_modules/**'] }).map(file => [
-    normalizePath(
-      path.relative('src', file)
-    ),
-    fileURLToPath(new URL(file, import.meta.url))
-  ])
+  globSync('src/pages/**/*.{html,ejs}', { ignore: ['node_modules/**'] }).map(
+    file => [
+      normalizePath(path.relative('src', file)),
+      fileURLToPath(new URL(file, import.meta.url))
+    ]
+  )
 );
 
 const extraFiles = {
-  'index.html': fileURLToPath(new URL('./src/index.html', import.meta.url)),
+  'index.html': fileURLToPath(new URL('./src/index.html', import.meta.url))
 };
 
-const inputObject = { ...scssFiles, ...jsFiles, ...htmlFiles, ...extraFiles  };
-console.table(inputObject)
+const inputObject = { ...scssFiles, ...jsFiles, ...htmlFiles, ...extraFiles };
+console.table(inputObject);
 
 export default defineConfig({
   root: 'src',
@@ -64,7 +70,7 @@ export default defineConfig({
     ViteGenerateIndexPlugin(),
     ViteEjsPlugin({
       ejs: {
-        beautify: true,
+        beautify: true
       }
     }),
     sassGlobImports(),
@@ -77,16 +83,16 @@ export default defineConfig({
         sassOptions: {
           // additionalData: `@import "@/assets/style/global.scss";`,
         }
-      },
-    },
+      }
+    }
   },
   resolve: {
     alias: [
       {
         find: '@/',
         replacement: fileURLToPath(new URL('./src', import.meta.url))
-      },
-    ],
+      }
+    ]
   },
   build: {
     outDir: '../dist',
@@ -103,10 +109,10 @@ export default defineConfig({
             return 'vendor';
           }
         }
-      },
-    },
+      }
+    }
   },
   server: {
-    port: 3000,
+    port: 3000
   }
 });
