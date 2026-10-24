@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": "^22.13.0 || >=24.0.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -12,17 +15,17 @@
     "format:fix": "prettier . --write"
   },
   "devDependencies": {
-    "ejs": "^3.1.10",
-    "eslint": "^9.39.1",
-    "@eslint/js": "^9.39.1",
-    "prettier": "^3.4.2",
-    "glob": "11.1.0",
-    "sass": "^1.94.2",
-    "vite": "^5.4.21",
-    "vite-plugin-live-reload": "^3.0.5",
-    "vite-plugin-sass-glob-import": "^3.0.2"
+    "ejs": "^7.0.2",
+    "eslint": "^10.13.0",
+    "@eslint/js": "^10.0.1",
+    "prettier": "^3.9.10",
+    "glob": "^13.0.6",
+    "sass": "^1.106.1",
+    "vite": "^7.3.7",
+    "vite-plugin-live-reload": "^4.0.0",
+    "vite-plugin-sass-glob-import": "^6.0.3"
   },
   "dependencies": {
-    "jquery": "^3.7.1"
+    "jquery": "^4.0.0"
   }
 }

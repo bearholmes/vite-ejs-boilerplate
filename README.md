@@ -4,9 +4,9 @@
 
 **빠르고 간편한 멀티페이지 웹 개발 스타터 킷**
 
-[![Vite](https://img.shields.io/badge/Vite-5.4-646CFF?style=flat&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![EJS](https://img.shields.io/badge/EJS-3.1-90A93A?style=flat&logo=ejs&logoColor=white)](https://ejs.co/)
-[![Sass](https://img.shields.io/badge/Sass-1.94-CC6699?style=flat&logo=sass&logoColor=white)](https://sass-lang.com/)
+[![Vite](https://img.shields.io/badge/Vite-7.3-646CFF?style=flat&logo=vite&logoColor=white)](https://vite.dev/)
+[![EJS](https://img.shields.io/badge/EJS-7.0-90A93A?style=flat&logo=ejs&logoColor=white)](https://ejs.co/)
+[![Sass](https://img.shields.io/badge/Sass-1.106-CC6699?style=flat&logo=sass&logoColor=white)](https://sass-lang.com/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
 [Features](#features) • [Quick Start](#quick-start) • [Project Structure](#project-structure) • [Documentation](#documentation)
@@ -36,7 +36,7 @@
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 22.x (22.13.0 이상, `.nvmrc`: 22)
 - npm 또는 yarn
 
 ### Installation
@@ -46,8 +46,12 @@
 git clone <repository-url>
 cd vite-ejs-boilerplate
 
-# 의존성 설치
-npm install
+# Node.js 버전 선택 (nvm 사용 시)
+nvm install
+nvm use
+
+# 잠금 파일 기준으로 의존성 설치
+npm ci
 
 # 개발 서버 시작 (http://localhost:3000)
 npm run dev
@@ -167,7 +171,7 @@ vite-ejs-boilerplate/
 $primary-color: #646cff;
 
 // 페이지별 스타일 임포트
-@import './pages/home';
+@use './pages/home';
 ```
 
 #### Using Path Alias
