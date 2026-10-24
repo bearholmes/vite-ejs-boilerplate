@@ -58,6 +58,10 @@ function ViteEjsPlugin(options = {}) {
 
         try {
           const pageList = readPageList(config.root);
+          const alias = config.resolve.alias || [];
+          const includeAlias = alias.find(
+            ({ find }) => find === '@/' || find === '@'
+          );
 
           html = ejs.render(
             html,
@@ -68,11 +72,31 @@ function ViteEjsPlugin(options = {}) {
             {
               views: [path.resolve(config.root)],
               ...ejsOptions,
-              async: false
+              async: false,
+              includer(originalPath, parsedPath) {
+                const filename =
+                  includeAlias && originalPath.startsWith('@/')
+                    ? ejs.resolveInclude(
+                        originalPath.slice(2),
+                        includeAlias.replacement,
+                        true
+                      )
+                    : parsedPath;
+                const included =
+                  typeof ejsOptions.includer === 'function'
+                    ? ejsOptions.includer(originalPath, filename)
+                    : undefined;
+                if (included) return included;
+                if (!filename) {
+                  throw new Error(
+                    `Could not find the include file "${ejs.escapeXML(originalPath)}"`
+                  );
+                }
+                return { filename };
+              }
             }
           );
 
-          const alias = config.resolve.alias || [];
           alias.forEach(({ find, replacement }) => {
             const aliasRegex = toAliasRegex(find);
             html = html.replace(aliasRegex, () => {
