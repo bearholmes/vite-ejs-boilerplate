@@ -4,14 +4,14 @@
 <!doctype html>
 <html lang="ko">
   <head>
-    <%- include('./templates/partials/head.ejs') %>
+    <%- include('@/templates/partials/head') %>
     <title>유틸 예시 | Vite EJS Boilerplate</title>
     <script
       type="module"
       src="../assets/scripts/util.js"></script>
   </head>
   <body>
-    <%- include('./templates/partials/header.ejs') %>
+    <%- include('@/templates/partials/header.ejs') %>
     <main class="container section">
       <div class="pill">jQuery util.js + counter.js</div>
       <div class="grid">
@@ -44,7 +44,7 @@
         </article>
       </div>
     </main>
-    <%- include('./templates/partials/footer.ejs') %>
+    <%- include('@/templates/partials/footer.ejs') %>
     <script
       type="module"
       src="../assets/scripts/counter.js"></script>

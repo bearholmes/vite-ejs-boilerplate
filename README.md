@@ -67,6 +67,7 @@ npm run build
 | `npm run dev`                | 개발 서버 시작 (기본 포트: 3000)    |
 | `npm run dev -- --port 4000` | 커스텀 포트로 개발 서버 시작        |
 | `npm run build`              | 프로덕션 빌드 (`dist/` 폴더에 생성) |
+| `npm test`                   | EJS include 경로 회귀 검사          |
 
 ---
 
